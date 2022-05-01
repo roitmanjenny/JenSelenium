@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -84,7 +85,6 @@ public class JenHW9 {
     //5-double click
     @Test
     public void test05() {
-
         WebElement dclick = driver.findElement(By.xpath("//p[@ondblclick='doubleClickFunction()']"));
         Actions doubleclick = new Actions(driver);
         doubleclick.doubleClick(dclick);
@@ -105,29 +105,40 @@ public class JenHW9 {
     //5-select multiple - not working.((
     @Test
     public void test07() {
-
-        List<WebElement> elementList = driver.findElements(By.name("food"));
+        driver.get("https://dgotlieb.github.io/Actions/");
+        List<WebElement> elementList = driver.findElements(By.name("kind"));
         Actions multiSelect = new Actions(driver);
         multiSelect.clickAndHold(elementList.get(0)).clickAndHold(elementList.get(2)).click();
         multiSelect.perform();
     }
 
+    //5 - upload a file
     @Test
     public void test08() {
         driver.findElement(By.name("pic")).sendKeys("/Users/jennyroitman/Downloads/1.png");
     }
 
+    //6
     @Test
     public void test09() {
+        driver.get("https://dgotlieb.github.io/Controllers/");
+        driver.findElement(By.name("group1")).click();
+
+        Select selected = new Select(driver.findElement(By.name("dropdownmenu")));
+        selected.selectByIndex(1);
+        for (int i = 0; i < selected.getOptions().size(); i++) {
+            System.out.println(selected.getOptions().get(i).getText());
+        }
     }
 
+    //7 - buttons height and width
     @Test
     public void test10() {
+        driver.get("https://dgotlieb.github.io/WebCalculator/");
+        System.out.println(driver.findElement(By.id("two")).getRect().height);
+        System.out.println(driver.findElement(By.id("six")).getRect().width);
     }
 
-    @Test
-    public void test11() {
-    }
 
     @AfterClass
     public static void afterClass() {
